@@ -7,15 +7,21 @@ use Illuminate\Http\Request;
 
 class BarangController extends Controller
 {
-    public function getAllBarang() {
-        $barang = Barang::all(); // ambil semua data barang
-        return view('best-selling', compact('barang')); // kirim data ke view
-    }
     // Display all barang for Best Selling Plants
     public function index()
     {
-        // Menampilkan view index.blade.php
-        return view('index');
+        // Ambil semua data barang dari model Barang
+        $barang = Barang::all(); 
+        
+        // Kirim data barang ke view index
+        return view('index', compact('barang'));
+    }
+
+    // Display all barang for another purpose
+    public function getAllBarang()
+    {
+        $barang = Barang::all(); // Ambil semua data barang
+        return view('best-selling', compact('barang')); // Kirim data ke view
     }
 
     // Show single barang details (optional)
@@ -24,5 +30,4 @@ class BarangController extends Controller
         $barang = Barang::findOrFail($id);
         return view('barang.show', compact('barang'));
     }
-    
 }

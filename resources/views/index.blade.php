@@ -178,35 +178,36 @@
             margin: 0;
         }
 
-        .products-scroll {
+        .scroll-container {
             overflow-x: auto;
-            scroll-behavior: smooth;
-            -ms-overflow-style: none;
-            /* Hide scrollbar for IE and Edge */
-            scrollbar-width: none;
-            /* Hide scrollbar for Firefox */
-            padding: 1rem 0;
+            white-space: nowrap;
+            padding: 20px 0;
         }
 
-        .products-scroll::-webkit-scrollbar {
-            display: none;
-            /* Hide scrollbar for Chrome, Safari and Opera */
+        .scroll-container::-webkit-scrollbar {
+            height: 8px;
         }
 
-        .products-container {
-            display: flex;
-            gap: 1.5rem;
-            padding: 0.5rem 0;
+        .scroll-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .scroll-container::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
         }
 
         .product-card {
-            min-width: 300px;
-            flex-shrink: 0;
-            transition: transform 0.3s ease;
+            display: inline-block;
+            width: 280px;
+            margin-right: 20px;
+            white-space: normal;
+            vertical-align: top;
         }
 
-        .product-card:hover {
-            transform: translateY(-5px);
+        .product-grid-item {
+            width: 20%;
+            padding: 15px;
         }
 
         .plant-card {
@@ -235,8 +236,7 @@
     <!-- Updated Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                <i class="fas fa-leaf text-success"></i> Rizzhoma
+        <img src="{{ asset('images/logo.png') }}" alt="Logo" style="width: 100px;">  
             </a>
             <div class="d-flex align-items-center">
                 <a href="#" class="me-3 nav-icon"><i class="fas fa-shopping-cart"></i></a>
@@ -281,10 +281,10 @@
                 <i class="fas fa-shopping-cart"></i>
                 <span>Cart</span>
             </a>
-            <a href="#" class="sidebar-link">
-                <i class="fas fa-star"></i>
-                <span>Donate</span>
-            </a>
+            <a href="{{ route('impact.report') }}" class="sidebar-link">
+    <i class="fas fa-star"></i>
+    <span>Donate</span>
+</a>
 
 
             <div class="sidebar-divider"></div>
@@ -344,7 +344,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="hero-image-container">
-                        <img src="asset/image.png" class="img-fluid" alt="Plant Image Here">
+                        <img src="{{ asset('images/image.png') }}" class="img-fluid" alt="Plant Image Here">
                         <div class="image-placeholder h-100"></div>
                     </div>
                 </div>
@@ -357,7 +357,14 @@
     <section class="py-5">
         <div class="container">
             <h1 class="mb-4">Best Selling Plants</h1>
-            <div class="row" id="product-container">
+            <div class="scroll-container">
+            @foreach($barang as $item)
+                <div class="product-card">
+                    <img src="{{ asset('asset/' . ($item['image'] ?? 'default.png')) }}" alt="{{ $item['name'] ?? 'Product' }}" class="img-fluid mb-3">
+                    <h5>{{ $item['title'] ?? 'No Name' }}</h5>
+                    <p class="text-muted">${{ number_format($item['harga'] ?? 0, 2) }}</p>
+                </div>
+            @endforeach
                 <!-- Data produk akan dimuat di sini -->
             </div>
         </div>
@@ -499,7 +506,7 @@
                 </div>
             </div>
             <div class="border-top pt-4 mt-4">
-                <p class="text-muted text-center mb-0">2023 all Rights Reserved Term of use PT. Flora Cipta Karsa Utama
+                <p class="text-muted text-center mb-0">2025 all Rights Reserved Term of use PT. Flora Cipta Karsa Utama
                 </p>
             </div>
         </div>
